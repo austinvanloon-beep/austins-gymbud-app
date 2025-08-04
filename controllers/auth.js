@@ -59,7 +59,6 @@ router.post('/sign-in', async ( req, res) => {
             console.log(error)
             res.redirect('/auth/sign-in')
         }
-    }
 })
 
 

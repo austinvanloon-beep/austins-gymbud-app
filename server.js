@@ -5,19 +5,29 @@ const dotenv = require('dotenv')
 const path = require('path')
 require('dotenv').config()
 const app = express()
-
+const passUserToView = require('./middleware/passUserToView')
+const isLoggedIn = require('./middleware/isLoggedIn')
+const authController = require('./controllers/auth')
+const userController = require('./controllers/users')
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB')
 })
 
 
-app.use(express)
+app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
+app.use('/auth', authController);
+app.use('/users', userController);
 app.set('view engine', 'ejs')
 
+
+// temporary 
+app.get('/new', isLoggedIn, (req, res) => {
+  res.send("This is the /new route")
+})
 
 
 
@@ -25,7 +35,7 @@ app.get('/', (req, res) => {
     res.send(`GymBud is running on port ${PORT}`)
 })
 
-const PORT = process.env.PORT ? process.env.PORT : '3000';
+const PORT = process.env.PORT ? process.env.PORT : '3000'
 app.listen(PORT, () => {
     console.log(`App is running on port ${PORT}`)
 })

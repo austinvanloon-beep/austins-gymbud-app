@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 
-// gym log schema?
+// gym log schema
 const gymLogSchema = new mongoose.Schema({
     date: String,
     notes: String,
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
 
 const workoutLogSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    date; Date,
+    date: Date,
     notes: String
 })
 

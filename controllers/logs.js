@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const User = require('../models/user');
+const User = require('../models/user')
 
 
 // handles logs! (similar to pantry items in cookbook)
