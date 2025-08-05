@@ -35,15 +35,27 @@ app.use('/users/:userId/logs', isLoggedIn, logsController)
 app.set('view engine', 'ejs')
 
 
-// temporary 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.use((req, res, next) => {
+  next()
+})
+
+
+
+
+// temp
 app.get('/new', isLoggedIn, (req, res) => {
   res.send("This is the /new route")
 })
 
 
-
 app.get('/', (req, res) => {
-  res.render('home.ejs', { user: req.session.user })
+  res.render('home', { user: req.session.user })
 })
 
 

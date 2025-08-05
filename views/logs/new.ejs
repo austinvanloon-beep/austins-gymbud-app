@@ -1,19 +1,26 @@
 <%- include('../partials/header') %>
 
-<h1>New Workout Log</h1>
+<h1>New Workout Log for <%= user.username %></h1>
 
-<form action="/users/<%= userId %>/logs" method="POST">
+<form action="/users/<%= user._id %>/logs" method="POST">
   <label for="workoutType">Workout Type:</label>
-  <input type="text" name="workoutType" required><br>
+  <input type="text" name="workoutType" id="workoutType" required>
 
-  <label for="duration">Duration (mins):</label>
-  <input type="number" name="duration"><br>
+  <label for="duration">Duration (minutes):</label>
+  <input type="number" name="duration" id="duration" required min="1">
 
   <label for="date">Date:</label>
-  <input type="date" name="date"><br>
+  <input type="date" name="date" id="date" required>
 
   <label for="notes">Notes:</label>
-  <textarea name="notes"></textarea><br>
+  <textarea name="notes" id="notes"></textarea>
 
-  <button type="submit">Log It</button>
+  <button type="submit">Add Log</button>
 </form>
+
+<a href="/users/<%= user._id %>/logs">Back to Logs</a>
+
+
+<%- include('../partials/footer') %>
+
+

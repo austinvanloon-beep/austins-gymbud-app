@@ -1,3 +1,5 @@
+<%- include('../partials/header') %>
+
 <h1>Sign In</h1>
 
 <form action="/auth/sign-in" method="POST">
@@ -10,4 +12,7 @@
   <button type="submit">Sign In</button>
 </form>
 
+
 <a href="/auth/sign-up">Don't have an account? Sign Up</a>
+
+<%- include('../partials/footer') %>

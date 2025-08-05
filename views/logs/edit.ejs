@@ -1,0 +1,24 @@
+<%- include('../partials/header') %>
+
+<h1>Edit Workout Log</h1>
+
+<form action="/users/<%= user._id %>/logs/<%= log._id %>?_method=PUT" method="POST">
+  <label>Workout Type:</label>
+  <input type="text" name="workoutType" value="<%= log.workoutType %>" required><br>
+
+  <label>Duration (mins):</label>
+  <input type="number" name="duration" value="<%= log.duration %>" required><br>
+
+  <label>Date:</label>
+<% let formattedDate = new Date(log.date).toISOString().split('T')[0]; %>
+    <input type="date" name="date" value="<%= formattedDate %>" required><br>
+
+  <label>Notes:</label>
+  <textarea name="notes"><%= log.notes %></textarea><br>
+
+  <button type="submit">Update Log</button>
+</form>
+
+<a href="/users/<%= user._id %>/logs">Cancel</a>
+
+<%- include('../partials/footer') %>

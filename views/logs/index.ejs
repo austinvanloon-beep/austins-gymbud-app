@@ -1,16 +1,27 @@
 <%- include('../partials/header') %>
 
-<h1><%= user.name %>'s Workout Logs</h1>
+<h1><%= user.username %>'s Workout Logs</h1>
 
-<ul>
-  <% logs.forEach(log => { %>
-    <li>
-      <strong><%= log.workoutType %></strong> -
-      <%= log.duration %> mins on <%= log.date %>
-      <br>
-      Notes: <%= log.notes %>
-    </li>
-  <% }) %>
-</ul>
+<% if (user.gymLogs.length === 0) { %>
+  <p>No logs yet. <a href="/users/<%= user._id %>/logs/new">Add one?</a></p>
+<% } else { %>
+  <ul>
+    <% user.gymLogs.forEach(log => { %>
+      <li>
+        <strong><%= log.workoutType %></strong> —
+        <%= new Date(log.date).toDateString() %>
+        <br>
+        Notes: <%= log.notes || 'None' %>
+        <br>
+        <a href="/users/<%= user._id %>/logs/<%= log._id %>/edit" style="margin-right: 10px;">Edit</a>
+        <form action="/users/<%= user._id %>/logs/<%= log._id %>?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" style="background-color: red; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
 
-<a href="/users/<%= user._id %>/logs/new">Add New Log</a>
+<a href="/">Back to Home</a>
+
+<%- include('../partials/footer') %>

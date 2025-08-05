@@ -1,3 +1,5 @@
+<%- include('partials/header') %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +9,10 @@
 <body>
   <h1>Welcome to GymBud!</h1>
 
-  <% if (user) { %>
-    <p>Hello, <%= user.name %>!</p>
-    <a href="/users/<%= user._id %>/logs">View My Workout Logs</a><br>
-    <a href="/users/<%= user._id %>/logs/new">Add a New Log</a><br>
-    <a href="/auth/sign-out">Sign Out</a>
-  <% } else { %>
-    <a href="/auth/sign-in">Sign In</a> |
-    <a href="/auth/sign-up">Sign Up</a>
-  <% } %>
+<% if (user) { %>
+  <a href="/auth/sign-out" class="nav-button">Sign Out</a>
+<% } %>
+
 </body>
 </html>
+<%- include('partials/footer') %>
