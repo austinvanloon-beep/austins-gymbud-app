@@ -3,9 +3,8 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 
-// edit: removed flash commands due to not being able to solve bugs
-// (button response flashing)
-
+// removed all flash AND community commands due to not being able to solve bugs
+// (button response flashing / explore pages)
 
 
 // GET sign up
@@ -31,12 +30,10 @@ router.post('/sign-up', async (req, res) => {
 })
 
 
-
 // GET sign in
 router.get('/sign-in', (req, res) => {
     res.render('auth/sign-in.ejs')
 })
-
 
 
 // POST sign in
@@ -48,7 +45,6 @@ router.post('/sign-in', async (req, res) => {
       return res.redirect('/auth/sign-in')
     }
     const match = await bcrypt.compare(req.body.password, user.password)
-
     if (!match) {
     res.redirect('/');
       return res.redirect('/auth/sign-in')
@@ -63,16 +59,12 @@ router.post('/sign-in', async (req, res) => {
 })
 
 
-
-
-// signs out
+// sign out
 router.get('/sign-out', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/')
   })
 })
-
-
 
 
 module.exports = router

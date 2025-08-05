@@ -5,6 +5,7 @@
 <% if (user.gymLogs.length === 0) { %>
   <p>No logs yet. <a href="/users/<%= user._id %>/logs/new">Add one?</a></p>
 <% } else { %>
+    
   <ul>
     <% user.gymLogs.forEach(log => { %>
       <li>

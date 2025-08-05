@@ -31,3 +31,4 @@
 
 ## Next steps:
 - Community / Explore page for users
+- Add alternating motivating quotes

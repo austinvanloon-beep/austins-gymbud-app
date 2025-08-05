@@ -17,7 +17,6 @@ mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB')
 })
 
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride('_method'))
@@ -45,19 +44,13 @@ app.use((req, res, next) => {
   next()
 })
 
-
-
-
-// temp
 app.get('/new', isLoggedIn, (req, res) => {
   res.send("This is the /new route")
 })
 
-
 app.get('/', (req, res) => {
   res.render('home', { user: req.session.user })
 })
-
 
 
 const PORT = process.env.PORT ? process.env.PORT : '3000'
