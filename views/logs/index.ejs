@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<h1><%= user.name %>'s Workout Logs</h1>
+
+<ul>
+  <% logs.forEach(log => { %>
+    <li>
+      <strong><%= log.workoutType %></strong> -
+      <%= log.duration %> mins on <%= log.date %>
+      <br>
+      Notes: <%= log.notes %>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/users/<%= user._id %>/logs/new">Add New Log</a>

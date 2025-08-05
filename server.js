@@ -5,10 +5,13 @@ const dotenv = require('dotenv')
 const path = require('path')
 require('dotenv').config()
 const app = express()
+const session = require('express-session')
 const passUserToView = require('./middleware/passUserToView')
 const isLoggedIn = require('./middleware/isLoggedIn')
 const authController = require('./controllers/auth')
 const userController = require('./controllers/users')
+const logsController = require('./controllers/logs')
+const usersRouter = require('./controllers/users')
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB')
@@ -19,8 +22,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passUserToView)
 app.use('/auth', authController);
 app.use('/users', userController);
+app.use('/users', usersRouter)
+app.use('/users/:userId/logs', isLoggedIn, logsController)
 app.set('view engine', 'ejs')
 
 
@@ -32,8 +43,10 @@ app.get('/new', isLoggedIn, (req, res) => {
 
 
 app.get('/', (req, res) => {
-    res.send(`GymBud is running on port ${PORT}`)
+  res.render('home.ejs', { user: req.session.user })
 })
+
+
 
 const PORT = process.env.PORT ? process.env.PORT : '3000'
 app.listen(PORT, () => {

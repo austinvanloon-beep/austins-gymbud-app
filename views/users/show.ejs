@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= user.name %> - Profile</title>
+</head>
+<body>
+  <h1>Welcome <%= user.name %>!</h1>
+  <p>Email: <%= user.email %></p>
+
+  <h2>My Workout Logs</h2>
+  <% if (user.logs && user.logs.length > 0) { %>
+    <ul>
+      <% user.logs.forEach(log => { %>
+        <li>
+          <strong>Workout Type:</strong> <%= log.workoutType %> <br />
+          <strong>Duration:</strong> <%= log.duration %> minutes<br />
+          <strong>Notes:</strong> <%= log.notes %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No workout logs yet. Time to get moving!</p>
+  <% } %>
+
+  <a href="/users/<%= user._id %>/logs/new">Add New Workout Log</a>
+  <br />
+  <a href="/">Back to Home</a>
+</body>
+</html>
